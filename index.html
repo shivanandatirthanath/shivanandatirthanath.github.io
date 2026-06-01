@@ -3,309 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Name — Portfolio</title>
+<title>গানের গ্রন্থাগার — Song Library</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0e0d0b;
-    --bg-soft: #161410;
-    --ink: #f4efe6;
-    --muted: #9c958a;
-    --accent: #e8643c;
-    --accent-soft: #f0a07f;
-    --line: #2a2722;
+    --paper: #f5ecdc;
+    --paper-deep: #ece0cb;
+    --ink: #2c2118;
+    --crimson: #8b1e2d;
+    --crimson-deep: #6d121f;
+    --gold: #b08433;
+    --muted: #8a7a64;
+    --line: #d8c9af;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
   body {
-    background: var(--bg);
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 50% -10%, rgba(176,132,51,0.10), transparent 50%),
+      radial-gradient(circle at 0% 100%, rgba(139,30,45,0.06), transparent 40%);
     color: var(--ink);
-    font-family: 'Spline Sans Mono', monospace;
-    line-height: 1.6;
-    overflow-x: hidden;
+    font-family: 'Noto Serif Bengali', serif;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
     -webkit-font-smoothing: antialiased;
   }
+  .wrap { max-width: 760px; width: 100%; margin: 0 auto; padding: 0 1.5rem; }
 
-  /* grain overlay */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.035;
-    z-index: 99;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  header { text-align: center; padding: 6rem 1.5rem 1rem; }
+  .mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.5rem;
   }
+  header h1 {
+    font-weight: 600; font-size: clamp(2.6rem, 9vw, 5rem);
+    color: var(--crimson); line-height: 1.1;
+  }
+  header .tagline {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.35rem; color: var(--muted); margin-top: 0.8rem;
+  }
+  .rule {
+    width: 70px; height: 2px; background: var(--gold);
+    margin: 2rem auto 0; position: relative;
+  }
+  .rule::before, .rule::after {
+    content: "◆"; color: var(--gold); font-size: 0.6rem;
+    position: absolute; top: -0.45rem;
+  }
+  .rule::before { left: -1.3rem; }
+  .rule::after { right: -1.3rem; }
 
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
-
-  /* nav */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.5rem 2rem;
-    z-index: 50;
-    mix-blend-mode: difference;
-  }
-  nav .logo {
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 1.2rem;
-    letter-spacing: -0.02em;
-  }
-  nav .links { display: flex; gap: 1.8rem; }
-  nav a {
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    opacity: 0.7;
-    transition: opacity 0.3s;
-  }
-  nav a:hover { opacity: 1; }
-
-  /* hero */
-  header {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-  }
-  .eyebrow {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: var(--accent-soft);
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: rise 0.9s 0.1s forwards;
-  }
-  h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(3rem, 11vw, 9rem);
-    line-height: 0.92;
-    letter-spacing: -0.04em;
-  }
-  h1 .line { display: block; overflow: hidden; }
-  h1 .line span {
-    display: block;
-    opacity: 0;
-    transform: translateY(110%);
-    animation: rise 1s forwards;
-  }
-  h1 .line:nth-child(1) span { animation-delay: 0.2s; }
-  h1 .line:nth-child(2) span { animation-delay: 0.35s; }
-  h1 em {
-    font-style: italic;
-    font-weight: 500;
-    color: var(--accent);
-  }
-  .hero-foot {
-    margin-top: 3rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem 4rem;
-    align-items: flex-end;
-    opacity: 0;
-    animation: rise 0.9s 0.7s forwards;
-  }
-  .hero-foot p {
-    max-width: 38ch;
-    color: var(--muted);
-    font-size: 0.95rem;
-  }
-  .scroll-cue {
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .scroll-cue::before {
-    content: ""; width: 40px; height: 1px;
-    background: var(--accent);
-    display: inline-block;
-    animation: stretch 2s ease-in-out infinite;
-    transform-origin: left;
+  main { flex: 1; padding: 3rem 0 5rem; }
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); font-size: 0.9rem; margin-bottom: 1.8rem;
   }
 
-  /* sections */
-  section { padding: 8rem 0; border-top: 1px solid var(--line); }
-  .sec-head {
-    display: flex; align-items: baseline; gap: 1rem;
-    margin-bottom: 3.5rem;
+  .collections { display: grid; gap: 1.2rem; }
+  .collection {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+    text-decoration: none; color: var(--ink);
+    background: #fffaf1;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 1.8rem 2rem;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    position: relative; overflow: hidden;
   }
-  .sec-num {
-    font-size: 0.8rem; color: var(--accent);
-    letter-spacing: 0.1em;
+  .collection::after {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+    background: var(--crimson);
+    transform: scaleY(0); transform-origin: bottom; transition: transform 0.3s;
   }
-  .sec-head h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 400;
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    letter-spacing: -0.02em;
+  .collection:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(44,33,24,0.12);
+    border-color: var(--gold);
   }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+  .collection:hover::after { transform: scaleY(1); }
+  .collection .info .name {
+    font-size: 1.7rem; font-weight: 600; color: var(--crimson-deep);
   }
-  .about-grid p { font-size: 1.05rem; color: #d8d2c7; }
-  .about-grid p + p { margin-top: 1.2rem; }
-  .facts { display: flex; flex-direction: column; gap: 1.4rem; }
-  .fact { border-left: 2px solid var(--accent); padding-left: 1rem; }
-  .fact .k { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); }
-  .fact .v { font-family: 'Fraunces', serif; font-size: 1.3rem; }
-
-  /* work cards */
-  .work { display: flex; flex-direction: column; }
-  .proj {
-    display: grid;
-    grid-template-columns: 60px 1fr auto;
-    gap: 1.5rem;
-    align-items: center;
-    padding: 2rem 0.5rem;
-    border-bottom: 1px solid var(--line);
-    text-decoration: none;
-    color: var(--ink);
-    transition: padding 0.4s, background 0.4s;
-    position: relative;
+  .collection .info .desc {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+    color: var(--muted); margin-top: 0.2rem;
   }
-  .proj:hover { padding-left: 1.5rem; background: var(--bg-soft); }
-  .proj .pn { color: var(--muted); font-size: 0.85rem; }
-  .proj .pt {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
-    font-weight: 400;
-  }
-  .proj .pt small { display: block; font-family: 'Spline Sans Mono'; font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
-  .proj .arr { font-size: 1.4rem; opacity: 0; transform: translateX(-10px); transition: all 0.4s; color: var(--accent); }
-  .proj:hover .arr { opacity: 1; transform: translateX(0); }
-
-  /* contact */
-  .contact-cta {
-    font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(2.2rem, 8vw, 6rem);
-    line-height: 1;
-    letter-spacing: -0.03em;
-  }
-  .contact-cta a { color: var(--accent); text-decoration: none; transition: color 0.3s; }
-  .contact-cta a:hover { color: var(--accent-soft); }
-  .social { margin-top: 3rem; display: flex; gap: 2rem; }
-  .social a {
-    color: var(--muted); text-decoration: none;
-    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.15em;
-    transition: color 0.3s;
-  }
-  .social a:hover { color: var(--ink); }
+  .collection .arrow { font-size: 1.6rem; color: var(--gold); flex-shrink: 0; }
 
   footer {
-    padding: 3rem 0;
-    border-top: 1px solid var(--line);
-    display: flex; justify-content: space-between;
-    font-size: 0.75rem; color: var(--muted);
-    letter-spacing: 0.05em;
-  }
-
-  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
-  @keyframes stretch { 0%,100% { transform: scaleX(1); } 50% { transform: scaleX(1.8); } }
-
-  @media (max-width: 720px) {
-    nav .links { display: none; }
-    .about-grid { grid-template-columns: 1fr; }
-    .proj { grid-template-columns: 30px 1fr; }
-    .proj .arr { display: none; }
-    footer { flex-direction: column; gap: 0.5rem; }
+    text-align: center; padding: 2rem; border-top: 1px solid var(--line);
+    font-family: 'Cormorant Garamond', serif; color: var(--muted);
+    font-size: 0.9rem; letter-spacing: 0.04em;
   }
 </style>
 </head>
 <body>
-
-<nav>
-  <span class="logo">YN.</span>
-  <div class="links">
-    <a href="#about">About</a>
-    <a href="#work">Work</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
-
-<header class="wrap">
-  <div class="eyebrow">Designer · Developer · Maker</div>
-  <h1>
-    <span class="line"><span>Your Name,</span></span>
-    <span class="line"><span>building <em>things</em>.</span></span>
-  </h1>
-  <div class="hero-foot">
-    <p>A short line about who you are and what you do. Replace this with your own story — keep it sharp and human.</p>
-    <span class="scroll-cue">Scroll</span>
-  </div>
+<header>
+  <div class="mark">Song Library</div>
+  <h1>গানের গ্রন্থাগার</h1>
+  <div class="tagline">A collection of songs &amp; their words</div>
+  <div class="rule"></div>
 </header>
 
-<section id="about" class="wrap">
-  <div class="sec-head"><span class="sec-num">01</span><h2>About</h2></div>
-  <div class="about-grid">
-    <div>
-      <p>This is where you introduce yourself properly. Talk about what you care about, the kind of work you make, and what drives you. Two short paragraphs is usually plenty.</p>
-      <p>Write like you'd talk to someone you respect. Specifics beat buzzwords every time.</p>
-    </div>
-    <div class="facts">
-      <div class="fact"><div class="k">Based in</div><div class="v">Your City</div></div>
-      <div class="fact"><div class="k">Focus</div><div class="v">What you do</div></div>
-      <div class="fact"><div class="k">Currently</div><div class="v">Available for work</div></div>
-    </div>
-  </div>
-</section>
+<main class="wrap">
+  <div class="section-label">Collections</div>
+  <div class="collections">
 
-<section id="work" class="wrap">
-  <div class="sec-head"><span class="sec-num">02</span><h2>Selected work</h2></div>
-  <div class="work">
-    <a href="#" class="proj">
-      <span class="pn">01</span>
-      <span class="pt">Project One<small>Short description of what it is</small></span>
-      <span class="arr">↗</span>
+    <a class="collection" href="Shaktopodaboli/index.html">
+      <div class="info">
+        <div class="name">শাক্ত পদাবলী</div>
+        <div class="desc">Shaktopodaboli — devotional songs to the Mother</div>
+      </div>
+      <span class="arrow">→</span>
     </a>
-    <a href="#" class="proj">
-      <span class="pn">02</span>
-      <span class="pt">Project Two<small>Short description of what it is</small></span>
-      <span class="arr">↗</span>
-    </a>
-    <a href="#" class="proj">
-      <span class="pn">03</span>
-      <span class="pt">Project Three<small>Short description of what it is</small></span>
-      <span class="arr">↗</span>
-    </a>
-  </div>
-</section>
 
-<section id="contact" class="wrap">
-  <div class="sec-head"><span class="sec-num">03</span><h2>Get in touch</h2></div>
-  <div class="contact-cta">
-    Let's make<br>something <a href="mailto:you@email.com">together →</a>
-  </div>
-  <div class="social">
-    <a href="#">GitHub</a>
-    <a href="#">LinkedIn</a>
-    <a href="#">Twitter / X</a>
-  </div>
-</section>
+    <!-- To add another collection later, copy the block above,
+         change the name/description, and point href to its own folder. -->
 
-<footer class="wrap">
-  <span>© 2026 Your Name</span>
-  <span>Built &amp; hosted on GitHub Pages</span>
-</footer>
+  </div>
+</main>
 
+<footer>হাতে গড়া · Hosted on GitHub Pages</footer>
 </body>
 </html>
