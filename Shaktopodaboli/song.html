@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>শাক্ত পদাবলী</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Noto+Serif+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5ecdc;
+    --paper-deep: #ece0cb;
+    --ink: #2c2118;
+    --crimson: #8b1e2d;
+    --crimson-deep: #6d121f;
+    --gold: #b08433;
+    --muted: #8a7a64;
+    --line: #d8c9af;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(176,132,51,0.08), transparent 40%),
+      radial-gradient(circle at 85% 100%, rgba(139,30,45,0.06), transparent 38%);
+    color: var(--ink);
+    font-family: 'Noto Serif Bengali', serif;
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 1.5rem; }
+
+  .topbar { padding: 1.8rem 0 0; }
+  .back {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; letter-spacing: 0.04em;
+    color: var(--crimson); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: gap 0.2s;
+  }
+  .back:hover { gap: 0.8rem; }
+
+  article { padding: 3rem 0 5rem; }
+  .song-head { text-align: center; margin-bottom: 2.5rem; }
+  .song-head h1 {
+    font-weight: 600; font-size: clamp(1.8rem, 5.5vw, 2.8rem);
+    color: var(--crimson); line-height: 1.2;
+  }
+  .byline {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.2rem; color: var(--muted); margin-top: 0.7rem;
+  }
+  .ragatala {
+    display: inline-block; margin-top: 1rem;
+    font-size: 0.95rem; color: var(--gold);
+    letter-spacing: 0.05em;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.25rem 1rem;
+  }
+  .rule {
+    width: 50px; height: 2px; background: var(--gold);
+    margin: 1.8rem auto 0;
+  }
+
+  .lyrics {
+    font-size: 1.35rem;
+    line-height: 2.2;
+    text-align: center;
+    color: var(--ink);
+  }
+  .lyrics .stanza { margin-bottom: 1.8rem; }
+  .lyrics .stanza:last-child { margin-bottom: 0; }
+
+  .notfound { text-align: center; padding: 5rem 1rem; }
+  .notfound p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--muted); font-style: italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="index.html">← সব গান (all songs)</a>
+  </div>
+  <article id="content"></article>
+</div>
+
+<script src="songs.js"></script>
+<script>
+  function getId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function renderLyrics(text) {
+    // split into stanzas on blank lines, lines on \n
+    return text.split(/\n\s*\n/).map(stanza => {
+      const lines = stanza.split('\n').map(escapeHtml).join('<br>');
+      return '<div class="stanza">' + lines + '</div>';
+    }).join('');
+  }
+
+  const id = getId();
+  const song = SONGS.find(s => s.id === id);
+  const content = document.getElementById('content');
+
+  if (!song) {
+    document.title = 'গান পাওয়া যায়নি';
+    content.innerHTML =
+      '<div class="notfound"><p>এই গানটি পাওয়া যায়নি।<br>The song was not found.</p></div>';
+  } else {
+    document.title = song.title + ' — শাক্ত পদাবলী';
+    const ragatala = [song.raga, song.tala].filter(Boolean).join(' — ');
+    content.innerHTML =
+      '<div class="song-head">' +
+        '<h1>' + escapeHtml(song.title) + '</h1>' +
+        '<div class="byline">' + escapeHtml(song.author) + '</div>' +
+        (ragatala ? '<div class="ragatala">' + escapeHtml(ragatala) + '</div>' : '') +
+        '<div class="rule"></div>' +
+      '</div>' +
+      '<div class="lyrics">' + renderLyrics(song.lyrics) + '</div>';
+  }
+</script>
+</body>
+</html>
