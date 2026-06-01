@@ -6226,30 +6226,3 @@ const SONGS = [
     "lyrics": "ভুবন ভুলালে রে কার কামিনী ঐ রমণী,\nবামার করে করাল শোভিছে ভাল কর-\nবাল দামিনী!\nসজল জলদ শোণিত সঙ্গে, নাচে ত্রিভঙ্গে\nতাল-বিভঙ্গে রে। মায়ের শিরে শিশু\nশশী ষোড়শী রূপসী, শশীমুখী কাশী-\nবাসিনী।\nঅট্ট অট্ট অট্ট হাসিছে রে নাশিছে দনুজ\nমাভৈ ভাসিছে রে, শ্রীহরেন্দ্র কহিছে\nহৃদি প্রকাশিছে তব রূপে ভবজননী।\n\nপাঠান্তর / পাঠভেদ:\n\nভুবন ভুলালে রে কার কামিনী ঐ রমণী!\nবামার করে করাল শোভিছে ভাল করবাল যেন দামিনী॥\nসজল জলদ শোণিত অঙ্গে,\nনাচে ত্রিভঙ্গে তাল-বিভঙ্গে রে।\nমায়ের শিরে শিশুশশী ষোড়শী রূপসী\nশশীমুখী কাশীবাসিনী॥\nঅট্ট অট্ট অট্ট হাসিছে রে,\nনাশিছে দনুজ মাভৈ ভাষিছে রে,\nশ্রীহরেন্দ্র কহিছে        হৃদি প্রকাশিছে\nতব রূপে ভব-জননী॥"
   }
 ];
-
-
-/* ============================================================
-   ভবা পাগলা — TO ADD
-   ------------------------------------------------------------
-   Bhaba Pagla's songs are still under copyright (he died in
-   1984), so the lyrics are not included here. For any song you
-   have the right to use, COPY one block below, move it INSIDE
-   the SONGS array above (just before the closing  ];  put a
-   comma after the previous entry), and fill in the words.
-
-   Template — copy this block for each song:
-
-   {
-     "id": "bhaba_001",          // bhaba_002, bhaba_003, ...
-     "title": "প্রথম পঙ্‌ক্তি",   // usually the first line
-     "author": "ভবা পাগলা",
-     "raga": "",                  // optional
-     "tala": "",                  // optional
-     "lyrics": "প্রথম লাইন\nদ্বিতীয় লাইন\n\nপরের স্তবক"
-   }
-
-   Reminder: \n = line break,  \n\n = new stanza,
-   and keep a comma between every entry inside the array.
-   Because author is "ভবা পাগলা", the songs appear in the poet
-   dropdown and search automatically once added.
-   ============================================================ */
