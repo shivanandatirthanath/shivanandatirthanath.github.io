@@ -96,50 +96,46 @@
   }
   .collection .arrow { font-size: 1.6rem; color: var(--gold); flex-shrink: 0; }
 
-  /* ── Contact card ─────────────────────────────── */
-  .contact-card {
-    margin-top: 3.5rem;
-    background: #fffaf1;
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    padding: 1.9rem 2rem;
+  /* ── Contact (top, click to reveal) ───────────── */
+  .contact-top { max-width: 760px; margin: 1.8rem auto 0; padding: 0 1.5rem; text-align: center; }
+  details.contact > summary {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    cursor: pointer; list-style: none; user-select: none;
+    font-family: 'Noto Serif Bengali', serif; font-size: 1.02rem;
+    color: var(--crimson);
+    background: #fffaf1; border: 1px solid var(--line); border-radius: 999px;
+    padding: 0.55rem 1.5rem;
+    transition: border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  details.contact > summary::-webkit-details-marker { display: none; }
+  details.contact > summary::after {
+    content: "+"; font-family: 'Cormorant Garamond', serif; font-size: 1.15rem;
+    color: var(--gold); line-height: 1;
+  }
+  details.contact > summary:hover {
+    border-color: var(--gold); box-shadow: 0 6px 16px rgba(44,33,24,0.10);
+  }
+  details.contact[open] > summary {
+    background: var(--crimson); color: #fffaf1; border-color: var(--crimson);
+  }
+  details.contact[open] > summary::after { content: "×"; color: #f5d9a0; }
+  .contact-panel {
+    max-width: 560px; margin: 1rem auto 0;
+    background: #fffaf1; border: 1px solid var(--line); border-radius: 3px;
+    padding: 1.6rem 1.8rem; text-align: left;
     position: relative; overflow: hidden;
+    font-size: 1.08rem; line-height: 1.95; color: var(--ink);
   }
-  .contact-card::after {
-    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-    background: var(--gold);
+  .contact-panel::after {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gold);
   }
-  .contact-card .body {
-    font-size: 1.12rem; line-height: 1.95; color: var(--ink);
-  }
-  .contact-card a.email {
-    display: inline-block; margin-top: 0.6rem;
+  .contact-panel a.email {
+    display: inline-block; margin-top: 0.5rem;
     color: var(--crimson); font-weight: 600; text-decoration: none;
-    border-bottom: 1px solid rgba(139,30,45,0.35);
-    word-break: break-all;
+    border-bottom: 1px solid rgba(139,30,45,0.35); word-break: break-all;
     transition: color 0.2s, border-color 0.2s;
   }
-  .contact-card a.email:hover {
-    color: var(--crimson-deep); border-bottom-color: var(--crimson-deep);
-  }
-
-  /* ── Visitors counter ─────────────────────────── */
-  .visitors {
-    text-align: center;
-    margin-top: 3.2rem;
-    padding-top: 2.4rem;
-    border-top: 1px solid var(--line);
-  }
-  .visitors .count {
-    font-size: clamp(2.2rem, 8vw, 3.2rem);
-    font-weight: 600; color: var(--crimson); line-height: 1;
-    font-variant-numeric: tabular-nums;
-  }
-  .visitors .count-label {
-    font-family: 'Cormorant Garamond', serif;
-    letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); font-size: 0.82rem; margin-top: 0.55rem;
-  }
+  .contact-panel a.email:hover { color: var(--crimson-deep); border-bottom-color: var(--crimson-deep); }
 
   footer {
     text-align: center; padding: 2rem; border-top: 1px solid var(--line);
@@ -169,6 +165,17 @@
   <div class="rule"></div>
 </header>
 
+<div class="contact-top">
+  <details class="contact">
+    <summary>যোগাযোগ করুন</summary>
+    <div class="contact-panel">
+      আপনি যদি চান আমি কোনো নতুন গান যুক্ত করি, কোনো গানে পরিবর্তনের পরামর্শ দিতে চান,
+      অথবা অন্য যেকোনো জিজ্ঞাসা থাকে — অনুগ্রহ করে আমার ইমেলে যোগাযোগ করুন:
+      <a class="email" href="mailto:shivanandatirthanath108@gmail.com">shivanandatirthanath108@gmail.com</a>
+    </div>
+  </details>
+</div>
+
 <main class="wrap">
   <div class="section-label">Collections</div>
   <div class="collections">
@@ -186,63 +193,8 @@
 
   </div>
 
-  <!-- ── Contact ────────────────────────────────── -->
-  <div class="section-label" style="margin-top:3.5rem;">যোগাযোগ · Contact</div>
-  <div class="contact-card">
-    <div class="body">
-      আপনি যদি চান আমি কোনো নতুন গান যুক্ত করি, কোনো গানে পরিবর্তনের পরামর্শ দিতে চান,
-      অথবা অন্য যেকোনো জিজ্ঞাসা থাকে — অনুগ্রহ করে আমার ইমেলে যোগাযোগ করুন:
-      <a class="email" href="mailto:shivanandatirthanath108@gmail.com">shivanandatirthanath108@gmail.com</a>
-    </div>
-  </div>
-
-  <!-- ── Visitor counter ────────────────────────── -->
-  <div class="visitors">
-    <div class="count" id="visit-count">·····</div>
-    <div class="count-label" id="visit-label">total viewers</div>
-  </div>
-
 </main>
 
 <footer>হাতে গড়া · Hosted on GitHub Pages</footer>
-
-<script>
-/* ───────────────────────────────────────────────────────────
-   Visitor counter — counts total viewers. No account or
-   backend needed: Abacus (abacus.jasoncameron.dev) stores the
-   count. Each browser is counted only once (remembered
-   locally); on later visits the latest total is simply shown.
-   ─────────────────────────────────────────────────────────── */
-(function () {
-  var NS  = "shivanandatirthanath.github.io"; // unique namespace = your site
-  var API = "https://abacus.jasoncameron.dev";
-
-  var elCount = document.getElementById("visit-count");
-  var elLabel = document.getElementById("visit-label");
-
-  function fmt(n) { return (typeof n === "number") ? n.toLocaleString("en-US") : n; }
-
-  function getJSON(url) {
-    return fetch(url).then(function (r) {
-      if (!r.ok) throw new Error(r.status);
-      return r.json();
-    });
-  }
-
-  // Count each browser once; on later visits just read the total.
-  var FIRST_VISIT = !localStorage.getItem("slib_visit_counted");
-  var verb = FIRST_VISIT ? "/hit/" : "/get/";
-
-  getJSON(API + verb + NS + "/total-viewers")
-    .then(function (d) {
-      elCount.textContent = fmt(d.value);
-      if (FIRST_VISIT) localStorage.setItem("slib_visit_counted", "1");
-    })
-    .catch(function () {
-      elCount.textContent = "—";
-      elLabel.textContent = "viewers";
-    });
-})();
-</script>
 </body>
 </html>
