@@ -73,30 +73,6 @@
   .lyrics .stanza { margin-bottom: 1.8rem; }
   .lyrics .stanza:last-child { margin-bottom: 0; }
 
-  .video-wrap { margin: 3rem 0 0; text-align: center; }
-  .video-heading {
-    font-family: 'Cormorant Garamond', serif;
-    text-transform: uppercase; letter-spacing: 0.18em;
-    font-size: 0.85rem; color: var(--muted);
-    margin-bottom: 1.4rem;
-  }
-  .video-item { margin-bottom: 1.8rem; }
-  .video-item:last-child { margin-bottom: 0; }
-  .video-item iframe {
-    width: 100%; aspect-ratio: 16 / 9; height: auto;
-    border: 1px solid var(--line); border-radius: 4px;
-  }
-  .video-label {
-    font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
-    color: var(--muted); margin-bottom: 0.5rem;
-  }
-  .video-link {
-    display: inline-block;
-    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
-    color: var(--crimson); text-decoration: none;
-  }
-  .video-link:hover { text-decoration: underline; }
-
   .notfound { text-align: center; padding: 5rem 1rem; }
   .notfound p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--muted); font-style: italic; }
 
@@ -130,7 +106,7 @@
   }
 
   function escapeHtml(s) {
-    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   function renderLyrics(text) {
@@ -139,37 +115,6 @@
       const lines = stanza.split('\n').map(escapeHtml).join('<br>');
       return '<div class="stanza">' + lines + '</div>';
     }).join('');
-  }
-
-  // Accepts youtube.com/watch?v=, youtu.be/, or youtube.com/embed/ links
-  function youtubeEmbed(url) {
-    const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-    return m ? 'https://www.youtube.com/embed/' + m[1] : null;
-  }
-
-  // item may be a URL string, or an object { url, label }
-  function renderOneVideo(item) {
-    const url = (typeof item === 'string') ? item : (item && item.url);
-    const label = (item && typeof item === 'object' && item.label) ? item.label : '';
-    if (!url) return '';
-    const embed = youtubeEmbed(url);
-    const inner = embed
-      ? '<iframe src="' + embed + '" title="video" allowfullscreen loading="lazy"></iframe>'
-      : '<a class="video-link" href="' + encodeURI(url) +
-        '" target="_blank" rel="noopener">▶ ভিডিও দেখুন (watch video)</a>';
-    return '<div class="video-item">' +
-      (label ? '<div class="video-label">' + escapeHtml(label) + '</div>' : '') +
-      inner + '</div>';
-  }
-
-  // video may be: undefined, a string, or an array of strings/objects
-  function renderVideo(video) {
-    if (!video) return '';
-    const list = Array.isArray(video) ? video : [video];
-    const items = list.map(renderOneVideo).filter(Boolean).join('');
-    if (!items) return '';
-    const heading = (list.length > 1) ? '<div class="video-heading">শুনুন / দেখুন · Recordings</div>' : '';
-    return '<div class="video-wrap">' + heading + items + '</div>';
   }
 
   const id = getId();
@@ -190,8 +135,7 @@
         (ragatala ? '<div class="ragatala">' + escapeHtml(ragatala) + '</div>' : '') +
         '<div class="rule"></div>' +
       '</div>' +
-      '<div class="lyrics">' + renderLyrics(song.lyrics) + '</div>' +
-      renderVideo(song.video);
+      '<div class="lyrics">' + renderLyrics(song.lyrics) + '</div>';
   }
 </script>
 </body>
