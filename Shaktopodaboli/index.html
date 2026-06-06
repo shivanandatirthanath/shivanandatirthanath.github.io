@@ -1,220 +1,499 @@
 <!DOCTYPE html>
+
 <html lang="bn">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>শাক্ত পদাবলী — গানের তালিকা</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Noto+Serif+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --paper: #f5ecdc;
-    --paper-deep: #ece0cb;
-    --ink: #2c2118;
-    --crimson: #8b1e2d;
-    --crimson-deep: #6d121f;
-    --gold: #b08433;
-    --muted: #8a7a64;
-    --line: #d8c9af;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--paper);
-    background-image:
-      radial-gradient(circle at 20% 0%, rgba(176,132,51,0.07), transparent 45%),
-      radial-gradient(circle at 90% 100%, rgba(139,30,45,0.06), transparent 40%);
-    color: var(--ink);
-    font-family: 'Noto Serif Bengali', serif;
-    line-height: 1.7;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 820px; margin: 0 auto; padding: 0 1.5rem; }
 
-  /* header */
-  header { text-align: center; padding: 4rem 1.5rem 2.5rem; }
-  .crumb {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 1.2rem;
-  }
-  .crumb a { color: var(--crimson); text-decoration: none; }
-  .crumb a:hover { text-decoration: underline; }
-  header h1 {
-    font-weight: 600; font-size: clamp(2.2rem, 7vw, 3.6rem);
-    color: var(--crimson); line-height: 1.15;
-  }
-  header .sub {
-    font-family: 'Cormorant Garamond', serif; font-style: italic;
-    font-size: 1.25rem; color: var(--muted); margin-top: 0.4rem;
-  }
-  .rule {
-    width: 60px; height: 2px; background: var(--gold);
-    margin: 1.8rem auto 0; position: relative;
-  }
-  .rule::before, .rule::after {
-    content: "◆"; color: var(--gold); font-size: 0.6rem;
-    position: absolute; top: -0.45rem;
-  }
-  .rule::before { left: -1.2rem; }
-  .rule::after { right: -1.2rem; }
+ :root {
 
-  /* search controls */
-  .controls {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(245,236,220,0.92);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--line);
-    padding: 1rem 0;
-  }
-  .controls .inner {
-    max-width: 820px; margin: 0 auto; padding: 0 1.5rem;
-    display: flex; gap: 0.8rem; flex-wrap: wrap;
-  }
-  #search {
-    flex: 1 1 240px;
-    font-family: 'Noto Serif Bengali', serif;
-    font-size: 1.05rem;
-    padding: 0.7rem 1rem;
-    border: 1px solid var(--line);
-    border-radius: 2px;
-    background: #fffaf1;
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  #search:focus { border-color: var(--crimson); }
-  #author {
-    font-family: 'Noto Serif Bengali', serif;
-    font-size: 1rem;
-    padding: 0.7rem 1rem;
-    border: 1px solid var(--line);
-    border-radius: 2px;
-    background: #fffaf1;
-    color: var(--ink);
-    cursor: pointer;
-  }
-  .count {
-    max-width: 820px; margin: 1.2rem auto 0; padding: 0 1.5rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem; color: var(--muted); letter-spacing: 0.04em;
-  }
+ --paper: #f5ecdc;
 
-  /* list */
-  .list { padding: 0.5rem 0 5rem; }
-  .song {
-    display: block; text-decoration: none; color: var(--ink);
-    padding: 1.15rem 1.2rem;
-    border-bottom: 1px solid var(--line);
-    transition: background 0.2s, padding-left 0.25s;
-    position: relative;
-  }
-  .song:hover { background: var(--paper-deep); padding-left: 1.8rem; }
-  .song::before {
-    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 3px; background: var(--crimson);
-    transform: scaleY(0); transform-origin: top; transition: transform 0.25s;
-  }
-  .song:hover::before { transform: scaleY(1); }
-  .song .t { font-size: 1.3rem; font-weight: 500; color: var(--crimson-deep); }
-  .song .meta {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.02rem; color: var(--muted); margin-top: 0.15rem;
-  }
-  .song .meta .dot { color: var(--gold); margin: 0 0.5rem; }
-  .empty {
-    text-align: center; padding: 4rem 1rem; color: var(--muted);
-    font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
-  }
+ --paper-deep: #ece0cb;
 
-  /* জয় শ্রীগুরু banner */
-  .guru-banner {
-    text-align: center;
-    font-family: 'Noto Serif Bengali', serif;
-    color: var(--gold);
-    font-size: 1.05rem;
-    letter-spacing: 0.08em;
-    padding: 0.7rem 1rem;
-    border-bottom: 1px solid var(--line);
-    background: rgba(255,250,241,0.5);
-  }
+ --ink: #2c2118;
+
+ --crimson: #8b1e2d;
+
+ --crimson-deep: #6d121f;
+ --gold: #b08433;
+
+ --muted: #8a7a64;
+
+ --line: #d8c9af;
+
+ }
+
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+
+ html { scroll-behavior: smooth; }
+
+ body {
+
+ background: var(--paper);
+
+ background-image:
+
+ radial-gradient(circle at 20% 0%, rgba(176,132,51,0.07), transparent 45%),
+
+ radial-gradient(circle at 90% 100%, rgba(139,30,45,0.06), transparent 40%);
+
+ color: var(--ink);
+
+ font-family: 'Noto Serif Bengali', serif;
+
+ line-height: 1.7;
+
+ min-height: 100vh;
+
+ -webkit-font-smoothing: antialiased;
+ }
+
+ .wrap { max-width: 820px; margin: 0 auto; padding: 0 1.5rem; }
+
+ /* header */
+
+ header { text-align: center; padding: 4rem 1.5rem 2.5rem; }
+
+ .crumb {
+
+ font-family: 'Cormorant Garamond', serif;
+
+ font-size: 0.95rem; letter-spacing: 0.18em; text-transform: uppercase;
+
+ color: var(--muted); margin-bottom: 1.2rem;
+
+ }
+
+ .crumb a { color: var(--crimson); text-decoration: none; }
+
+ .crumb a:hover { text-decoration: underline; }
+
+ header h1 {
+
+ font-weight: 600; font-size: clamp(2.2rem, 7vw, 3.6rem);
+ color: var(--crimson); line-height: 1.15;
+
+ }
+
+ header .sub {
+
+ font-family: 'Cormorant Garamond', serif; font-style: italic;
+
+ font-size: 1.25rem; color: var(--muted); margin-top: 0.4rem;
+
+ }
+
+ .rule {
+
+ width: 60px; height: 2px; background: var(--gold);
+
+ margin: 1.8rem auto 0; position: relative;
+
+ }
+
+ .rule::before, .rule::after {
+
+ content: "◆"; color: var(--gold); font-size: 0.6rem;
+
+ position: absolute; top: -0.45rem;
+
+ }
+
+ .rule::before { left: -1.2rem; }
+
+ .rule::after { right: -1.2rem; }
+
+ /* search controls */
+
+ .controls {
+
+ position: sticky; top: 0; z-index: 10;
+
+ background: rgba(245,236,220,0.92);
+
+ backdrop-filter: blur(6px);
+
+ border-bottom: 1px solid var(--line);
+
+ padding: 1rem 0;
+
+ }
+
+ .controls .inner {
+
+ max-width: 820px; margin: 0 auto; padding: 0 1.5rem;
+
+ display: flex; gap: 0.8rem; flex-wrap: wrap;
+
+ }
+
+ #search {
+
+ flex: 1 1 240px;
+
+ font-family: 'Noto Serif Bengali', serif;
+
+ font-size: 1.05rem;
+
+ padding: 0.7rem 1rem;
+
+ border: 1px solid var(--line);
+ border-radius: 2px;
+
+ background: #fffaf1;
+
+ color: var(--ink);
+
+ outline: none;
+
+ transition: border-color 0.2s;
+
+ }
+
+ #search:focus { border-color: var(--crimson); }
+
+ #author {
+
+ font-family: 'Noto Serif Bengali', serif;
+
+ font-size: 1rem;
+
+ padding: 0.7rem 1rem;
+
+ border: 1px solid var(--line);
+
+ border-radius: 2px;
+
+ background: #fffaf1;
+
+ color: var(--ink);
+
+ cursor: pointer;
+
+ }
+
+ .count {
+
+ max-width: 820px; margin: 1.2rem auto 0; padding: 0 1.5rem;
+
+ font-family: 'Cormorant Garamond', serif;
+ font-size: 1rem; color: var(--muted); letter-spacing: 0.04em;
+
+ }
+
+ /* list */
+
+ .list { padding: 0.5rem 0 5rem; }
+
+ .song {
+
+ display: block; text-decoration: none; color: var(--ink);
+
+ padding: 1.15rem 1.2rem;
+
+ border-bottom: 1px solid var(--line);
+
+ transition: background 0.2s, padding-left 0.25s;
+
+ position: relative;
+
+ }
+
+ .song:hover { background: var(--paper-deep); padding-left: 1.8rem; }
+
+ .song::before {
+
+ content: ""; position: absolute; left: 0; top: 0; bottom: 0;
+ width: 3px; background: var(--crimson);
+
+ transform: scaleY(0); transform-origin: top; transition: transform 0.25s;
+
+ }
+
+ .song:hover::before { transform: scaleY(1); }
+
+ .song .t { font-size: 1.3rem; font-weight: 500; color: var(--crimson-deep); }
+
+ .song .meta {
+
+ font-family: 'Cormorant Garamond', serif;
+
+ font-size: 1.02rem; color: var(--muted); margin-top: 0.15rem;
+
+ }
+
+ .song .meta .dot { color: var(--gold); margin: 0 0.5rem; }
+
+ .song .snippet {
+ margin-top: 0.35rem;
+ font-size: 0.95rem;
+ color: var(--muted);
+ line-height: 1.6;
+ }
+
+ .empty {
+ text-align: center; padding: 4rem 1rem; color: var(--muted);
+
+ font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;
+
+ }
+
+ /* জয় শ্রীগুরু banner */
+
+ .guru-banner {
+
+ text-align: center;
+
+ font-family: 'Noto Serif Bengali', serif;
+
+ color: var(--gold);
+
+ font-size: 1.05rem;
+
+ letter-spacing: 0.08em;
+
+ padding: 0.7rem 1rem;
+
+ border-bottom: 1px solid var(--line);
+
+ background: rgba(255,250,241,0.5);
+
+ }
+
 </style>
+
 </head>
+
 <body>
 <div class="guru-banner">।। জয় শ্রীগুরু ।।</div>
 
 <header>
-  <div class="crumb"><a href="../index.html">গ্রন্থাগার</a> &nbsp;·&nbsp; Shaktopodaboli</div>
-  <h1>শাক্ত পদাবলী</h1>
-  <div class="sub">Songs to the Mother</div>
-  <div class="rule"></div>
+
+ <div class="crumb"><a href="../index.html">গ্রন্থাগার</a> &nbsp;·&nbsp; Shaktopodaboli</div>
+
+ <h1>শাক্ত পদাবলী</h1>
+
+ <div class="sub">Songs to the Mother</div>
+
+ <div class="rule"></div>
+
 </header>
 
 <div class="controls">
-  <div class="inner">
-    <input id="search" type="text" placeholder="গান বা কবির নাম খুঁজুন…  (search by song or poet)" autocomplete="off">
-    <select id="author"><option value="">সকল কবি — All poets</option></select>
-  </div>
+
+ <div class="inner">
+
+ <input id="search" type="text" placeholder="গান, কবি, বা গানের কথা খুঁজুন… (search song, poet, or lyrics)" autocomplete="off">
+
+ <select id="author"><option value="">সকল কবি — All poets</option></select>
+
+ </div>
 </div>
+
 <div class="count" id="count"></div>
 
 <div class="wrap">
-  <div class="list" id="list"></div>
+
+ <div class="list" id="list"></div>
+
 </div>
 
 <script src="songs.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+
 <script>
-  const listEl = document.getElementById('list');
-  const searchEl = document.getElementById('search');
-  const authorEl = document.getElementById('author');
-  const countEl = document.getElementById('count');
 
-  // sort songs alphabetically by title (Bengali-aware)
-  const songs = [...SONGS].sort((a, b) => a.title.localeCompare(b.title, 'bn'));
+ const listEl = document.getElementById('list');
 
-  // populate the author dropdown
-  [...new Set(songs.map(s => s.author))].sort((a, b) => a.localeCompare(b, 'bn'))
-    .forEach(name => {
-      const o = document.createElement('option');
-      o.value = name; o.textContent = name;
-      authorEl.appendChild(o);
-    });
+ const searchEl = document.getElementById('search');
 
-  function render() {
-    const q = searchEl.value.trim().toLowerCase();
-    const auth = authorEl.value;
-    const filtered = songs.filter(s => {
-      const matchAuthor = !auth || s.author === auth;
-      const matchText = !q ||
-        s.title.toLowerCase().includes(q) ||
-        s.author.toLowerCase().includes(q);
-      return matchAuthor && matchText;
-    });
+ const authorEl = document.getElementById('author');
 
-    countEl.textContent = filtered.length + ' টি গান';
+ const countEl = document.getElementById('count');
 
-    if (filtered.length === 0) {
-      listEl.innerHTML = '<div class="empty">কোনো গান পাওয়া যায়নি — no songs found</div>';
-      return;
-    }
+ function escapeHtml(text) {
+ return String(text || '')
+ .replace(/&/g, '&amp;')
+ .replace(/</g, '&lt;')
+ .replace(/>/g, '&gt;')
+ .replace(/"/g, '&quot;')
+ .replace(/'/g, '&#039;');
+ }
 
-    listEl.innerHTML = filtered.map(s => {
-      const ragatala = [s.raga, s.tala].filter(Boolean).join(' — ');
-      const meta = ragatala
-        ? s.author + ' <span class="dot">◆</span> ' + ragatala
-        : s.author;
-      return '<a class="song" href="song.html?id=' + encodeURIComponent(s.id) + '">' +
-               '<div class="t">' + s.title + '</div>' +
-               '<div class="meta">' + meta + '</div>' +
-             '</a>';
-    }).join('');
-  }
+ function cleanText(text) {
+ return String(text || '')
+ .normalize('NFC')
+ .toLowerCase()
+ .replace(/[।॥,;:!?'"“”‘’()[\]{}<>—–\-_.]/g, ' ')
+ .replace(/\s+/g, ' ')
+ .trim();
+ }
 
-  searchEl.addEventListener('input', render);
-  authorEl.addEventListener('change', render);
-  render();
+ // sort songs alphabetically by title (Bengali-aware)
+ const songs = [...SONGS]
+ .sort((a, b) => a.title.localeCompare(b.title, 'bn'))
+ .map(song => ({
+ ...song,
+ _searchText: cleanText([
+ song.title,
+ song.author,
+ song.raga,
+ song.tala,
+ song.lyrics
+ ].join(' '))
+ }));
+
+ // populate the author dropdown
+ [...new Set(songs.map(s => s.author))]
+ .sort((a, b) => a.localeCompare(b, 'bn'))
+ .forEach(name => {
+ const o = document.createElement('option');
+
+ o.value = name; o.textContent = name;
+
+ authorEl.appendChild(o);
+
+ });
+
+ const fuseOptions = {
+ includeScore: true,
+ shouldSort: true,
+ threshold: 0.38,
+ ignoreLocation: true,
+ ignoreFieldNorm: true,
+ minMatchCharLength: 2,
+ keys: [
+ { name: 'title', weight: 0.45 },
+ { name: 'lyrics', weight: 0.35 },
+ { name: 'author', weight: 0.15 },
+ { name: 'raga', weight: 0.03 },
+ { name: 'tala', weight: 0.02 }
+ ]
+ };
+
+ function tokenMatches(song, query) {
+ const tokens = cleanText(query)
+ .split(' ')
+ .filter(token => token.length >= 2);
+
+ if (tokens.length === 0) return true;
+
+ return tokens.every(token => song._searchText.includes(token));
+ }
+
+ function getLyricSnippet(song, query) {
+ if (!query || !song.lyrics) return '';
+
+ const lyricsOneLine = String(song.lyrics).replace(/\s+/g, ' ');
+ const lyricsClean = cleanText(lyricsOneLine);
+ const tokens = cleanText(query)
+ .split(' ')
+ .filter(token => token.length >= 2);
+
+ const matchedToken = tokens.find(token => lyricsClean.includes(token));
+ if (!matchedToken) return '';
+
+ const lowerLyrics = lyricsOneLine.toLowerCase();
+ const index = lowerLyrics.indexOf(matchedToken);
+
+ if (index === -1) return '';
+
+ const start = Math.max(0, index - 45);
+ const end = Math.min(lyricsOneLine.length, index + 95);
+
+ return '…' + escapeHtml(lyricsOneLine.slice(start, end)) + '…';
+ }
+
+ function searchSongs(pool, query) {
+ const q = cleanText(query);
+
+ if (!q) return pool;
+
+ // First: exact/partial token search across title, author, raga, tala, and lyrics.
+ const tokenResults = pool.filter(song => tokenMatches(song, q));
+
+ // Second: fuzzy search, useful when the typed word is not exact.
+ const fuse = new Fuse(pool, fuseOptions);
+ const fuzzyResults = fuse.search(q).map(result => result.item);
+
+ // Combine results without duplicates. Token results come first.
+ const seen = new Set();
+ const combined = [];
+
+ [...tokenResults, ...fuzzyResults].forEach(song => {
+ if (!seen.has(song.id)) {
+ seen.add(song.id);
+ combined.push(song);
+ }
+ });
+
+ return combined;
+ }
+
+ function render() {
+ const q = searchEl.value.trim();
+
+ const auth = authorEl.value;
+
+ const pool = auth ? songs.filter(s => s.author === auth) : songs;
+
+ const filtered = searchSongs(pool, q);
+
+ countEl.textContent = filtered.length + ' টি গান';
+
+ if (filtered.length === 0) {
+
+ listEl.innerHTML = '<div class="empty">কোনো গান পাওয়া যায়নি — no songs found</div>';
+
+ return;
+
+ }
+
+ listEl.innerHTML = filtered.map(s => {
+
+ const ragatala = [s.raga, s.tala].filter(Boolean).join(' — ');
+
+ const meta = ragatala
+ ? escapeHtml(s.author) + ' <span class="dot">◆</span> ' + escapeHtml(ragatala)
+ : escapeHtml(s.author);
+
+ const snippet = q ? getLyricSnippet(s, q) : '';
+
+ return '<a class="song" href="song.html?id=' + encodeURIComponent(s.id) + '">' +
+
+ '<div class="t">' + escapeHtml(s.title) + '</div>' +
+
+ '<div class="meta">' + meta + '</div>' +
+
+ (snippet ? '<div class="snippet">' + snippet + '</div>' : '') +
+
+ '</a>';
+
+ }).join('');
+
+ }
+
+ searchEl.addEventListener('input', render);
+
+ authorEl.addEventListener('change', render);
+
+ render();
+
 </script>
+
 </body>
+
 </html>
